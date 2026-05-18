@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.23@sha256:2780b5c3bab67f1f76c781860de469442999ed1a0d7992a5efdf2cffc0e3d769
+# syntax=docker/dockerfile:1.24@sha256:87999aa3d42bdc6bea60565083ee17e86d1f3339802f543c0d03998580f9cb89
 FROM debian:trixie-slim@sha256:109e2c65005bf160609e4ba6acf7783752f8502ad218e298253428690b9eaa4b AS build
 ARG LOGSEQ_REF=master
 ARG MISE_VERSION=v2026.5.6
@@ -43,7 +43,7 @@ RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
 
 RUN mkdir -p /tmp/web && rsync -a --delete /src/static/ /tmp/web/
 
-FROM nginxinc/nginx-unprivileged:stable-alpine@sha256:9d4ab2b70ec4b86e8576f783066d178d4725dc8c4b3bd060cb09f6d058ba9291
+FROM nginxinc/nginx-unprivileged:stable-alpine@sha256:b9f7ba14f1f7bd3d40d7753584048f92c3aef9ccf5fab14efe4451a8d4c04d63
 LABEL org.opencontainers.image.description="Self-hosted Logseq DB web app static image"
 COPY images/web/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --chown=101:101 --from=build /tmp/web/ /usr/share/nginx/html/
